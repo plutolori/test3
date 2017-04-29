@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="eSalon.Views.CustomerListPage"
+             BackgroundColor="#f5f1f6"
+             Title="顧客管理">
+    
+    <StackLayout>
+        <Grid Padding="20,10,20,6" BackgroundColor="White" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <SearchBar 
+			Placeholder="輸入手機號碼" 
+			x:Name="searchBar" 
+                Grid.Row="0" Grid.Column="0"/>
+            <Button  Text="搜尋" Clicked="Button_Clicked" Grid.Row="0" Grid.Column="1"/>
+        </Grid>
+       
+        <ScrollView>
+            <ListView x:Name="MainListView" 
+              ItemsSource="{Binding Customers}"  
+              HasUnevenRows="True"
+              IsPullToRefreshEnabled="True"  
+              Refreshing="MainListView_Refreshing"
+              ItemTapped="MainListView_ItemTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Appearing="Cell_OnAppearing">
+                            <ContentView Padding="10,5,10,5">
+                                <Frame OutlineColor="#00c2dd"  Padding="10" BackgroundColor="#FFFFFF">
+
+                                    <StackLayout Orientation="Horizontal"  HorizontalOptions="FillAndExpand">
+                                        <Label  Text="{Binding mySalonName}" LineBreakMode="TailTruncation" Style="{StaticResource labelbStyle}"/>
+                                        <Label  Text="{Binding CellPhone}" LineBreakMode="TailTruncation" Style="{StaticResource labelbStyle}" HorizontalOptions="EndAndExpand"/>
+                                    </StackLayout>
+                                </Frame>
+                            </ContentView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollView>
+    </StackLayout>
+</ContentPage>
